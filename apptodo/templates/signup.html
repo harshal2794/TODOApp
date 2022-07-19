@@ -1,0 +1,30 @@
+<!-- **************************************************************************************************
+  
+  File name: signup.html
+  Project: todo application using HTML  and DRF
+
+  Discription of this file: This file is used to register the new user in which user have to create username
+  and password according to the validation applied in the code.
+  
+****************************************************************************************************** --> 
+
+{% extends 'base.html' %}
+    
+{% block content %}
+  <div class="container pt-4"> 
+    <div class="col-lg-5 shadow p-0 mx-auto">
+       <div class="alert alert-success">
+        <h2>Create Account</h2>
+        </div>
+       <div class = "p-4">
+            <form method = "post" action = "/signup/">
+                {% csrf_token %}
+                {{ form.as_ul }}
+                <hr>
+                <input class="btn btn-success" type="submit" value="Create Account">
+            </form>
+       </div>
+    </div>
+  </div>
+{% endblock %}
+    

@@ -1,0 +1,28 @@
+<!-- **************************************************************************************************
+  
+  File name: logout.html
+  Project: todo application using HTML  and DRF
+
+  Discription of this file: This file is used for destroy the current logged in user session.
+  
+****************************************************************************************************** --> 
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container pt-4">  
+    <div class="col-lg-4 mx-auto shadow p-0 mt-4">
+      <div class="alert alert-info">
+        <h4>Create Account</h4>
+      </div>
+      <div class="p-4">
+        <form action="/logout/" method="POST">
+          {% csrf_token %}
+          {{form.as_p}}
+          <hr>
+          <input type="submit" value="Logout" class="btn-btn-info">
+        </form>
+      </div>
+    </div>
+  </div>  
+{% endblock %}

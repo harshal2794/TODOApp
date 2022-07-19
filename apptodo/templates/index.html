@@ -1,0 +1,100 @@
+<!-- **************************************************************************************************
+  
+  File name: index.html
+  Project: todo application using HTML  and DRF
+
+  Discription of this file: This file is the index file which is use to serve to add new task and gives 
+  the list of all task allready added in the application by the user.
+  
+  It have, add new task in which user have to add title, status(completed or pending), priority level(1 to 10)
+  The task have two actions i.e delete and complete or pending.
+  
+****************************************************************************************************** --> 
+
+{% extends 'base.html' %}
+    
+{% block content %}
+      <div>
+        <div class="container pt-4">  
+          <div class="row p-0 mt-4">
+            <div class="col-lg-4 mx-auto shadow p-0">
+              <div class="alert alert-info">
+                <h4>Add New ToDo</h4>
+              </div>
+              <div class="p-4">
+                <form action="/add-todo/" method="POST">
+                  {% csrf_token %}
+                  {{form.as_p}}
+                  <hr>
+                  <input type="submit" value="ADD" class="btn-btn-info">
+                </form>
+              </div>
+            </div>
+
+              <div class = "col">
+                <div class="border-bg-dark">
+                  
+                  {% if todos|length == 0 %}
+
+                  <div class = "p-4">
+                    <br>
+                    <br>
+                    <div class = "alert alert-info text-center">
+                      <p class = "" style = "font-size: 20px;">No Todos</p>
+                    </div>
+                    <br>
+                    <br>
+                  </div>
+
+                  {% else %}
+                    <div>
+                      <table class='table'>
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {% for todo in todos %}
+                            <tr>
+                              <td>{{forloop.counter}}</td>
+                              <td>{{todo.title}}</td>
+                              <td>
+                                {% if todo.status == 'C' %}
+                                ✅
+                                {% else %}
+                                🕒
+                                {% endif %}
+                              </td>
+                              <td>{{todo.priority}}</td>
+                              <td>
+                                <a href="/delete-todo/{{todo.id}}" class = "" title = "Delete">🗑️</a>
+                                
+                                {% if todo.status == 'P' %}
+                                
+                                <a href="/change-status/{{todo.id}}/C" class = "" title = "Mark Completed">✅</a>
+                                
+                                {% else %}
+                                
+                                <a href="/change-status/{{todo.id}}/P" class = "" title = "Mark Pending">🕒</a>
+
+                                {% endif %}
+                              </td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+          </div>
+        </div>  
+      </div>
+
+{% endblock %}
